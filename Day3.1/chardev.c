@@ -5,18 +5,18 @@
 **	Adapted from: https://www.tldp.org/LDP/lkmpg/2.4/html/c577.htm (LKMPG)
 */
 
-#include <linux/module.h>			// Because this is a kernel module! :)
-#include <linux/kernel.h>			// For KERN_INFO
-#include <linux/init.h>				// For the __init and __exit macros
-#include <linux/fs.h>				// For the file operations struct; used while registering the device.
-#include <linux/uaccess.h>			// In the LKMPG code, this has been included as asm/uaccess.h. But this header file is actually under linux
-									// (it may have been moved here in this version of the kernel). It is used for put_user().
+#include <linux/module.h>		// Because this is a kernel module! :)
+#include <linux/kernel.h>		// For KERN_INFO
+#include <linux/init.h>			// For the __init and __exit macros
+#include <linux/fs.h>			// For the file operations struct; used while registering the device.
+#include <linux/uaccess.h>		// In the LKMPG code, this has been included as asm/uaccess.h. But this header file is actually under linux
+					// (it may have been moved here in this version of the kernel). It is used for put_user().
 #include <uapi/asm-generic/errno.h>	// In the LKMPG code, this has been included as asm/errno.h. But now, it is present under uapi/asm-generic/.
-									// It has probably been moved here. Note: There is an errno.h under linux also, but that does not provide the
-									// definitions for EBUSY and EINVAL; which we need in this module.
+					// It has probably been moved here. Note: There is an errno.h under linux also, but that does not provide the
+					// definitions for EBUSY and EINVAL; which we need in this module.
 
 #define SUCCESS 0
-#define DEV_NAME "chardev"			// Name of the device as it would appear under /proc/devices (does this location exist?)
+#define DEV_NAME "chardev"		// Name of the device as it would appear under /proc/devices (does this location exist?)
 #define BUF_LEN 80
 
 // Some metadata about our module...
