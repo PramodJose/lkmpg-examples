@@ -1,6 +1,6 @@
 KERN_SRC = /lib/modules/$(shell uname -r)/build
 
-obj-m += chardev.o
+obj-m += chrdev.o
 
 all:
 	make -C $(KERN_SRC) M=$(PWD) modules
